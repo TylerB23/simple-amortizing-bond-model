@@ -4,4 +4,4 @@ matplotlib
 sympy
 pandas
 datetime
-dateutil
+python-dateutil
