@@ -3,3 +3,5 @@ numpy
 matplotlib
 sympy
 pandas
+datetime
+dateutil
