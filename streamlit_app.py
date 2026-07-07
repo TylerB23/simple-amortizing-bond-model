@@ -126,7 +126,8 @@ def plot_debt_service():
     with inputcol1:
         # Input dates and checkboxes
         closing = st.date_input("Closing Date", format = "MM/DD/YYYY")
-        init_byr = date(date.today().year, date.today().month + 6, 1)
+        # init_byr = date(date.today().year, date.today().month + 6, 1)
+        init_byr = date.today().replace(day=1) + relativedelta(months=+6)
         init_mty = init_byr + relativedelta(years=+30)
         maturity = st.date_input("Final Maturity", value = init_mty,
                                  format = "MM/DD/YYYY")
@@ -140,7 +141,7 @@ def plot_debt_service():
             init_fees = 1_500 * np.ones(n)
             fee_table = pd.DataFrame({"Bond Year Ending": bond_years,
                                       "Fees": init_fees})
-            fees = st.data_editor(fee_table, height ="content", column_config={
+            fees = st.data_editor(fee_table, height ="stretch", column_config={
                                   "Bond Year Ending":
                                   st.column_config.DateColumn(disabled=True,
                                   format="MM/DD/YYYY"),
@@ -166,7 +167,7 @@ def plot_debt_service():
     revenue_table = pd.DataFrame({"Bond Year Ending" : bond_years,
                                   "Revenue Available" : init_revenue})
 
-    R = st.data_editor(revenue_table, height = "content", column_config={
+    R = st.data_editor(revenue_table, height = "stretch", column_config={
                        "Bond Year Ending":
                        st.column_config.DateColumn(disabled=True,
                        format="MM/DD/YYYY"),
@@ -235,6 +236,7 @@ def plot_debt_service():
     return ds_df.to_csv().encode("utf-8"), s_and_u.to_csv().encode("utf-8")
 
 # Call the fragment function
+# plot_debt_service()
 ds_df, s_and_u = plot_debt_service()
 
 # Separate fragment for download buttons
